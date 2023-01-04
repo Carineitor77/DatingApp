@@ -1,3 +1,4 @@
+using API.Data;
 using API.Extensions;
 using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -65,5 +66,8 @@ app.UseCors(policy =>
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
+await Seed.SeedUsers(context);
 
 app.Run();
