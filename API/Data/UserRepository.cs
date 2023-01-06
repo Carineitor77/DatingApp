@@ -23,12 +23,10 @@ namespace API.Data
 
         public async Task<MemberDto> GetMemberAsync(string username)
         {
-#pragma warning disable CS8603 // Possible null reference return.
             return await _context.Users
                 .Where(u => u.UserName == username)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
-#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<IEnumerable<MemberDto>> GetMembersAsync()
@@ -40,18 +38,14 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
-#pragma warning disable CS8603 // Possible null reference return.
             return await _context.Users.FindAsync(id);
-#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-#pragma warning disable CS8603 // Possible null reference return.
             return await _context.Users
                 .Include(p => p.Photos)
                 .SingleOrDefaultAsync(user => user.UserName == username);
-#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
